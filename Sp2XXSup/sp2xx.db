@@ -1,0 +1,104 @@
+record(bo, "$(P)DISABLE") 
+{
+    field(DESC, "Disable comms")
+    field(PINI, "YES")
+    field(VAL, "$(DISABLE=0)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "COMMS ENABLED")
+    field(ONAM, "COMMS DISABLED")
+}
+
+record(bo, "$(P)RUN:SP")
+{	
+	field(DESC, "Starts the pump.")
+	field(SCAN, "PASSIVE")
+    field(DTYP, "stream")
+
+	
+	field(OUT,  "@sp2xx.proto run $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "Run")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
+record(bo, "$(P)STOP:SP")
+{	
+	field(DESC, "Stops the pump.")
+	field(SCAN, "PASSIVE")
+    field(DTYP, "stream")
+
+	
+	field(OUT,  "@sp2xx.proto stop $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "STOP")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbi, "$(P)STATUS")
+{	
+	field(DESC, "Gets the pump status.")
+	field(SCAN, "4 second")
+	field(DTYP, "stream")
+
+	
+	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
+	
+	field(ZRST, "Stopped")
+	field(ONST, "Infusing")
+	field(TWST, "Withdrawing")
+
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record (mbbi, "$(P)ERROR")
+{
+	field(DESC, "Error type recorded after E prompt.")
+	field(SCAN, "PASSIVE")
+	
+	field(ZRST, "No error")
+	field(ZRSV, "NO_ALARM")
+	field(ONST, "RS232 Communication Error")
+	field(ONSV, "MAJOR")
+	field(TWST, "Stall")
+	field(TWSV, "MAJOR")
+	field(THST, "RS232 error + Stall")
+	field(THSV, "MAJOR")
+	field(FRST, "Serial overrun")
+	field(FRSV, "MAJOR")
+	field(FVST, "Serial Error and serial overrun")
+	field(FVSV, "MAJOR")
+	field(SXST, "Stall and serial overrun")
+	field(SXSV, "MAJOR")
+	field(SVST, "Stall and serial error and serial overrun")
+	field(SVSV, "MAJOR")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+
+## SIMULATION PVS ##
+
+record(bo, "$(P)SIM") 
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+	field(VAL, "$(RECSIM=0)")
+}
+
+
+## END OF SIMULATION PVS ##
