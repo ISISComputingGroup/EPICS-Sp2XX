@@ -15,7 +15,7 @@ record(bo, "$(P)RUN:SP")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto run $(PORT)")
+	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Run")
@@ -31,7 +31,7 @@ record(bo, "$(P)STOP:SP")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto stop $(PORT)")
+	field(OUT,  "@sp2xx.proto stop($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "STOP")
@@ -43,7 +43,7 @@ record(bo, "$(P)STOP:SP")
 record(mbbi, "$(P)STATUS")
 {	
 	field(DESC, "Gets the pump status.")
-	field(SCAN, "4 second")
+	field(SCAN, "PASSIVE")
 	field(DTYP, "stream")
 
 	

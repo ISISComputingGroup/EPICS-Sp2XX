@@ -11,12 +11,13 @@ withdrawing = $return "<";
 error {
 	in $return "E";
 	out "error?";
-	in $return "%(\$1)i" $return;
+	in $return "%(\$1)i";
 }
 
 run {
     out "run";
 	in "%{" $infusing "|" $withdrawing "}";
+	@mismatch { error; }
 }
 
 run_status {
@@ -28,5 +29,6 @@ run_status {
 stop {
 	out "stop";
 	in $stopped;
+	@mismatch { error; }
 }
 
