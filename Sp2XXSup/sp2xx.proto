@@ -39,3 +39,12 @@ stop {
 	@mismatch { error_mismatch; }
 }
 
+set_mode {
+	out "mode %{i|w|i//w|w//i|con}";
+	@mismatch { error_mismatch; }
+}
+
+get_mode {
+	out "mode?";
+	in "%{I|W|I//W|W//I|CON}";
+}
