@@ -15,7 +15,7 @@ record(bo, "$(P)RUN:SP")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto run($(P)LASTERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Run")
@@ -31,7 +31,7 @@ record(bo, "$(P)STOP:SP")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto stop($(P)ERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto stop($(P)LASTERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "STOP")
@@ -47,7 +47,7 @@ record(mbbi, "$(P)STATUS")
 	field(DTYP, "stream")
 
 	
-	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto run_status($(P)LASTERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -64,7 +64,7 @@ record(mbbi, "$(P)STATUS")
 	info(alarm, "Sp2XX")
 }
 
-record (mbbi, "$(P)ERROR")
+record (mbbi, "$(P)LASTERROR")
 {
 	field(DESC, "Error type recorded after E prompt.")
 	field(SCAN, "PASSIVE")
