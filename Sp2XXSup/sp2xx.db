@@ -43,11 +43,15 @@ record(bo, "$(P)STOP:SP")
 record(mbbi, "$(P)STATUS")
 {	
 	field(DESC, "Gets the pump status.")
-	field(SCAN, "PASSIVE")
+	field(SCAN, "1 second")
 	field(DTYP, "stream")
 
 	
 	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
 	
 	field(ZRST, "Stopped")
 	field(ONST, "Infusing")

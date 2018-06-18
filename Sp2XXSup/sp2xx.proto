@@ -1,12 +1,14 @@
 # SP2XX protocol file.
 
-OutTerminator = CR LF;
+# Manuel specifies out terminator as "CR LF" but this creates errors when communicating with the device.
+
+OutTerminator = CR;
 InTerminator = "";
 
 return = CR LF;
-stopped = $return ":";
-infusing = $return ">";
-withdrawing = $return "<";
+stopped = $return,":";
+infusing = $return,">";
+withdrawing = $return,"<";
 
 error {
 	in $return "E";
@@ -16,13 +18,13 @@ error {
 
 run {
     out "run";
-	in "%{" $infusing "|" $withdrawing "}";
+	in "%{",$infusing,"|",$withdrawing,"}";
 	@mismatch { error; }
 }
 
 run_status {
 	out "run?";
-	in "%{" $stopped "|" $infusing "|" $withdrawing "}";
+	in "%{",$stopped,"|",$infusing,"|",$withdrawing,"}";
 	@mismatch { error; }
 }
 
