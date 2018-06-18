@@ -8,14 +8,14 @@ record(bo, "$(P)DISABLE")
     field(ONAM, "COMMS DISABLED")
 }
 
-record(bo, "$(P)RUN:SP")
+record(bo, "$(P)RUN")
 {	
 	field(DESC, "Starts the pump.")
-	field(SCAN, "PASSIVE")
+	field(SCAN, "Passive")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto run($(P)LASTERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Run")
@@ -24,14 +24,14 @@ record(bo, "$(P)RUN:SP")
 	field(SDIS, "$(P)DISABLE")
 }
 
-record(bo, "$(P)STOP:SP")
+record(bo, "$(P)STOP")
 {	
 	field(DESC, "Stops the pump.")
-	field(SCAN, "PASSIVE")
+	field(SCAN, "Passive")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto stop($(P)LASTERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto stop($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "STOP")
@@ -47,7 +47,7 @@ record(mbbi, "$(P)STATUS")
 	field(DTYP, "stream")
 
 	
-	field(INP,  "@sp2xx.proto run_status($(P)LASTERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -64,26 +64,38 @@ record(mbbi, "$(P)STATUS")
 	info(alarm, "Sp2XX")
 }
 
-record (mbbi, "$(P)LASTERROR")
+record (mbbi, "$(P)ERROR")
 {
 	field(DESC, "Error type recorded after E prompt.")
-	field(SCAN, "PASSIVE")
+	field(DTYP, "stream")
+	
+	field(INP,  "@sp2xx.proto error_status $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	field(FVVL, "5")
+	field(SXVL, "6")
+	field(SVVL, "7")
+	
 	
 	field(ZRST, "No error")
 	field(ZRSV, "NO_ALARM")
-	field(ONST, "RS232 Communication Error")
+	field(ONST, "Comms error")
 	field(ONSV, "MAJOR")
 	field(TWST, "Stall")
 	field(TWSV, "MAJOR")
-	field(THST, "RS232 error + Stall")
+	field(THST, "Comms error and stall")
 	field(THSV, "MAJOR")
 	field(FRST, "Serial overrun")
 	field(FRSV, "MAJOR")
-	field(FVST, "Serial Error and serial overrun")
+	field(FVST, "Serial error and overrun")
 	field(FVSV, "MAJOR")
 	field(SXST, "Stall and serial overrun")
 	field(SXSV, "MAJOR")
-	field(SVST, "Stall and serial error and serial overrun")
+	field(SVST, "Stall ser err and overun")
 	field(SVSV, "MAJOR")
 	
 	field(SIML, "$(P)SIM")
