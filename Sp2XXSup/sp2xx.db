@@ -64,57 +64,6 @@ record(mbbi, "$(P)STATUS")
 	info(alarm, "Sp2XX")
 }
 
-record(mbbo, "$(P)MODE:SP"){
-	field(DESC, "Sets the mode of the device.")
-	field(DTYP, "stream")
-	
-	field(OUT,  "@sp2xx.proto set_mode($(P)ERROR) $(PORT)")
-	
-	field(ZRVL, "0")
-	field(ONVL, "1")
-	field(TWVL, "2")
-	field(THVL, "3")
-	field(FRVL, "4")
-	
-	field(ZRST, "Infusion")
-	field(ONST, "Withdrawal")
-	field(TWST, "Infusion/Withdrawal")
-	field(THST, "Withdrawal/Infusion/")
-	field(FRST, "Continuous")
-	
-	field(SIML, "$(P)SIM")
-	field(SDIS, "$(P)DISABLE")
-	
-	info(alarm, "Sp2XX")
-}
-
-record(mbbi, "$(P)MODE"){
-	field(DESC, "Gets the mode of the device.")
-	field(SCAN, "1 second")
-	field(DTYP, "stream")
-	
-	field(INP,  "@sp2xx.proto get_mode($(P)ERROR) $(PORT)")
-	
-	field(ZRVL, "0")
-	field(ONVL, "1")
-	field(TWVL, "2")
-	field(THVL, "3")
-	field(FRVL, "4")
-	
-	field(ZRST, "Infusion")
-	field(ONST, "Withdrawal")
-	field(TWST, "Infusion/Withdrawal")
-	field(THST, "Withdrawal/Infusion/")
-	field(FRST, "Continuous")
-	
-	field(SIML, "$(P)SIM")
-	field(SDIS, "$(P)DISABLE")
-	
-	info(alarm, "Sp2XX")
-}
-
-
-
 record (mbbi, "$(P)ERROR")
 {
 	field(DESC, "Error type recorded after E prompt.")
@@ -148,6 +97,31 @@ record (mbbi, "$(P)ERROR")
 	field(SXSV, "MAJOR")
 	field(SVST, "Stall ser err and overun")
 	field(SVSV, "MAJOR")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(mbbi, "$(P)MODE"){
+	field(DESC, "Gets the mode of the device.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP,  "@sp2xx.proto get_mode($(P)ERROR) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	
+	field(ZRST, "Infusion/Withdrawal")
+	field(ONST, "Withdrawal/Infusion")
+	field(TWST, "Infusion")
+	field(THST, "Withdrawal")
+	field(FRST, "Continuous")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")
