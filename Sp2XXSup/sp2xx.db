@@ -8,7 +8,7 @@ record(bo, "$(P)DISABLE")
     field(ONAM, "COMMS DISABLED")
 }
 
-record(bo, "$(P)RUN")
+record(bo, "$(P)RUN:SP")
 {	
 	field(DESC, "Starts the pump.")
 	field(SCAN, "Passive")
@@ -24,7 +24,7 @@ record(bo, "$(P)RUN")
 	field(SDIS, "$(P)DISABLE")
 }
 
-record(bo, "$(P)STOP")
+record(bo, "$(P)STOP:SP")
 {	
 	field(DESC, "Stops the pump.")
 	field(SCAN, "Passive")

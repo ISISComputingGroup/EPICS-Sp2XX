@@ -13,23 +13,23 @@ withdrawing = $return,"<";
 error_mismatch {
 	in $return "E";
 	out "error?";
-	in $return "%(\$1)i";
+	in $return "%(\$1)i" "%*{" $stopped "|" $infusing "|" $withdrawing "}";
 }
 
 error_status {
 	out "error?";
-	in $return "%{0|1|2|3|4|5|6|7}";
+	in $return "%i%*{" $stopped "|" $infusing,"|" $withdrawing,"}";
 }
 
 run {
     out "run";
-	in "%{",$infusing,"|",$withdrawing,"}";
+	in "%*{" $infusing "|" $withdrawing "}";
 	@mismatch { error_mismatch; }
 }
 
 run_status {
 	out "run?";
-	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
+	in "%{" $stopped "|" $infusing "|" $withdrawing "}";
 	@mismatch { error_mismatch; }
 }
 
@@ -41,13 +41,12 @@ stop {
 
 get_mode {
 	out "mode?";
-	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}";
-	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
+	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}%*{" $stopped "|" $infusing "|" $withdrawing "}";
 	@mismatch { error_mismatch; }
 }
 
 set_mode {
 	out "mode %{i\/w|w\/i|i|w|con}";
-	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
+	in "%*{" $stopped "|" $infusing "|" $withdrawing "}";
 	@mismatch { error_mismatch; }
 }
