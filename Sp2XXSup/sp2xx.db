@@ -104,6 +104,31 @@ record (mbbi, "$(P)ERROR")
 	info(alarm, "Sp2XX")
 }
 
+record(mbbo, "$(P)MODE:SP"){
+	field(DESC, "Sets the mode of the device.")
+	field(DTYP, "stream")
+	
+	field(OUT,  "@sp2xx.proto set_mode($(P)ERROR) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	
+	field(ZRST, "i/w")
+	field(ONST, "w/i")
+	field(TWST, "i")
+	field(THST, "w")
+	field(FRST, "con")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+
 record(mbbi, "$(P)MODE"){
 	field(DESC, "Gets the mode of the device.")
 	field(SCAN, "1 second")

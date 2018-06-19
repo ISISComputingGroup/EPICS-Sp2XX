@@ -29,7 +29,7 @@ run {
 
 run_status {
 	out "run?";
-	in "%{",$stopped,"|",$infusing,"|",$withdrawing,"}";
+	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
 	@mismatch { error_mismatch; }
 }
 
@@ -41,6 +41,13 @@ stop {
 
 get_mode {
 	out "mode?";
-	in "%{I/W|W/I|I|W|CON}";
+	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}";
+	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
+	@mismatch { error_mismatch; }
+}
+
+set_mode {
+	out "mode %{i\/w|w\/i|i|w|con}";
+	in "%*{",$stopped,"|",$infusing,"|",$withdrawing,"}";
 	@mismatch { error_mismatch; }
 }
