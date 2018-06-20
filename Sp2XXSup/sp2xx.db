@@ -14,7 +14,7 @@ record(bo, "$(P)RUN:SP")
 	field(SCAN, "Passive")
     field(DTYP, "stream")
 
-	
+
 	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
@@ -147,6 +147,22 @@ record(mbbi, "$(P)MODE"){
 	field(TWST, "Infusion")
 	field(THST, "Withdrawal")
 	field(FRST, "Continuous")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(bi, "$(P)DIRECTION") {
+	field(DESC, "Gets the direction of the device.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP, "@sp2xx.proto get_direction($(P)ERROR) $(PORT)")
+	
+	field(ZNAM, "Infusion")
+	field(ONAM, "Withdrawal")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")

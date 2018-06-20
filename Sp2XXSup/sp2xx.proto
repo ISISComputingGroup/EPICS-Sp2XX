@@ -50,3 +50,9 @@ set_mode {
 	in "%*{"$stopped"}";
 	@mismatch { error_mismatch; }
 }
+
+get_direction {
+	out "dir?";
+	in "%{" $return "I|" $return "W }%*{" $stopped "|" $infusing "|" $withdrawing "}";
+	@mismatch { error_mismatch; }
+}
