@@ -14,7 +14,6 @@ record(bo, "$(P)RUN:SP")
 	field(SCAN, "Passive")
     field(DTYP, "stream")
 
-
 	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "")
@@ -163,6 +162,22 @@ record(bi, "$(P)DIRECTION") {
 	
 	field(ZNAM, "Infusion")
 	field(ONAM, "Withdrawal")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(bo, "$(P)DIRECTION:REV") {
+	field(DESC, "Reverse the direction of the device.")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	
+	field(OUT, "@sp2xx.proto reverse_direction($(P)ERROR) $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "Reverse")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")

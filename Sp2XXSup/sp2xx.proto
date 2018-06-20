@@ -45,7 +45,7 @@ get_mode {
 	@mismatch { error_mismatch; }
 }
 
-set_mode {
+set_mode {	
 	out "mode %{i\/w|w\/i|i|w|con}";
 	in "%*{"$Stopped"}";
 	@mismatch { error_mismatch; }
@@ -54,5 +54,11 @@ set_mode {
 get_direction {
 	out "dir?";
 	in "%{" $return "I|" $return "W}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { error_mismatch; }
+}
+
+reverse_direction {
+	out "dir rev";
+	in "%*{" $Infusion "|" $Withdrawal "}";
 	@mismatch { error_mismatch; }
 }
