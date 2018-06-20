@@ -47,6 +47,6 @@ get_mode {
 
 set_mode {
 	out "mode %{i\/w|w\/i|i|w|con}";
-	in "%*{" $stopped "|" $infusing "|" $withdrawing "}";
+	in "%*{"$stopped"}";
 	@mismatch { error_mismatch; }
 }
