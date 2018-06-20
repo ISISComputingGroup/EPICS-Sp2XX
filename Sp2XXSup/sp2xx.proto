@@ -6,53 +6,53 @@ OutTerminator = CR;
 InTerminator = "";
 
 return = CR LF;
-stopped = $return,":";
-infusing = $return,">";
-withdrawing = $return,"<";
+Stopped = $return,":";
+Infusion = $return,">";
+Withdrawal = $return,"<";
 
 error_mismatch {
 	in $return "E";
 	out "error?";
-	in $return "%(\$1)i" "%*{" $stopped "|" $infusing "|" $withdrawing "}";
+	in $return "%(\$1)i" "%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
 }
 
 error_status {
 	out "error?";
-	in $return "%i%*{" $stopped "|" $infusing,"|" $withdrawing,"}";
+	in $return "%i%*{" $Stopped "|" $Infusion,"|" $Withdrawal,"}";
 }
 
 run {
     out "run";
-	in "%*{" $infusing "|" $withdrawing "}";
+	in "%*{" $Infusion "|" $Withdrawal "}";
 	@mismatch { error_mismatch; }
 }
 
 run_status {
 	out "run?";
-	in "%{" $stopped "|" $infusing "|" $withdrawing "}";
+	in "%{" $Stopped "|" $Infusion "|" $Withdrawal "}";
 	@mismatch { error_mismatch; }
 }
 
 stop {
 	out "stop";
-	in $stopped;
+	in $Stopped;
 	@mismatch { error_mismatch; }
 }
 
 get_mode {
 	out "mode?";
-	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}%*{" $stopped "|" $infusing "|" $withdrawing "}";
+	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
 	@mismatch { error_mismatch; }
 }
 
 set_mode {
 	out "mode %{i\/w|w\/i|i|w|con}";
-	in "%*{"$stopped"}";
+	in "%*{"$Stopped"}";
 	@mismatch { error_mismatch; }
 }
 
 get_direction {
 	out "dir?";
-	in "%{" $return "I|" $return "W }%*{" $stopped "|" $infusing "|" $withdrawing "}";
+	in "%{" $return "I|" $return "W}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
 	@mismatch { error_mismatch; }
 }

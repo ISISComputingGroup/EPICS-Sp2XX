@@ -54,8 +54,8 @@ record(mbbi, "$(P)STATUS")
 	field(TWVL, "2")
 	
 	field(ZRST, "Stopped")
-	field(ONST, "Infusing")
-	field(TWST, "Withdrawing")
+	field(ONST, "Infusion")
+	field(TWST, "Withdrawal")
 
 	
 	field(SIML, "$(P)SIM")
