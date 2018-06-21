@@ -25,7 +25,7 @@ error_status {
 
 run {
     out "run";
-	in "%(\$2){" $NA "|" $Infusion "|" $Withdrawal "}";
+	in "%(\$2)#{" $NA "=0|" $Infusion "=1|" $Withdrawal "=1}";
 	@mismatch { mismatch_catcher; }
 }
 
@@ -37,7 +37,7 @@ run_status {
 
 stop {
 	out "stop";
-	in "%(\$2){" $NA "|" $Stopped "}";
+	in "%(\$2){" $NA "=0|" $Stopped "=1}";
 	@mismatch { mismatch_catcher; }
 }
 
@@ -49,7 +49,7 @@ get_mode {
 
 set_mode {	
 	out "mode %{i\/w|w\/i|i|w|con}";
-	in "%(\$2){" $return "NA|" $Stopped "}";
+	in "%(\$2)#{" $NA "=0|" $Stopped "=1}";
 	@mismatch { mismatch_catcher; }
 }
 
@@ -61,6 +61,18 @@ get_direction {
 
 reverse_direction {
 	out "dir rev";
+	in "%(\$2){" $NA "|}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { mismatch_catcher; }
+}
+
+get_diam {
+	out "dia?";
+	in $return "%f%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { mismatch_catcher; }
+}
+
+set_diam {
+	out "dia %4.2f";
 	in "%(\$2){" $NA "|}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
 	@mismatch { mismatch_catcher; }
 }

@@ -42,7 +42,7 @@ record(mbbi, "$(P)STATUS"){
 	field(DTYP, "stream")
 
 	
-	field(INP,  "@sp2xx.proto run_status($(P)ERROR,$(P)NA) $(PORT)")
+	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -63,7 +63,7 @@ record (mbbi, "$(P)ERROR"){
 	field(DESC, "Error type recorded after E prompt.")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto error_status($(P)ERROR,$(P)NA) $(PORT)")
+	field(INP,  "@sp2xx.proto error_status($(P)ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -99,23 +99,14 @@ record (mbbi, "$(P)ERROR"){
 	info(alarm, "Sp2XX")
 }
 
-record (mbbi, "$(P)NA") {
+record(bi, "$(P)NA") {
 	field(DESC, "Record keeps track if NA is triggered.")
 	field(DTYP, "Soft Channel")
 	field(PINI, "YES")
 	field(VAL, "1")
 	
-	field(ZRVL, "0")
-	field(ZRST, "Can't run command")
-	
-	field(ONVL, "1")
-	field(ONST, "")	
-	
-	field(TWVL, "2")
-	field(TWST, "")
-	
-	field(THVL, "3")
-	field(THST, "")
+	field(ZNAM, "Can't run command")
+	field(ONAM, "")	
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")
@@ -151,7 +142,7 @@ record(mbbi, "$(P)MODE"){
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto get_mode($(P)ERROR,$(P)NA) $(PORT)")
+	field(INP,  "@sp2xx.proto get_mode($(P)ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -176,7 +167,7 @@ record(bi, "$(P)DIRECTION") {
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP, "@sp2xx.proto get_direction($(P)ERROR,$(P)NA) $(PORT)")
+	field(INP, "@sp2xx.proto get_direction($(P)ERROR) $(PORT)")
 	
 	field(ZNAM, "Infusion")
 	field(ONAM, "Withdrawal")
@@ -196,6 +187,32 @@ record(bo, "$(P)DIRECTION:REV") {
 	
 	field(ZNAM, "")
 	field(ONAM, "Reverse")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(ai, "$(P)DIAMETER") {
+	field(DESC, "Requests the current diameter settings.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP, "@sp2xx.proto get_diam($(P)ERROR) $(PORT)")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(ao, "$(P)DIAMETER:SP") {
+	field(DESC, "Sets the syringe diameter settings.")
+	field(DTYP, "stream")
+	
+	field(OUT, "@sp2xx.proto set_diam($(P)ERROR,$(P)NA) $(PORT)")
+	field(PREC, "2") 
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")
