@@ -6,11 +6,12 @@ OutTerminator = CR;
 InTerminator = "";
 
 return = CR LF;
-Stopped = $return,":";
-Infusion = $return,">";
-Withdrawal = $return,"<";
+Stopped = $return ":";
+Infusion = $return ">";
+Withdrawal = $return "<";
+NA = $return "NA";
 
-error_mismatch {
+mismatch_catcher {
 	in $return "E";
 	out "error?";
 	in $return "%(\$1)i" "%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
@@ -18,47 +19,48 @@ error_mismatch {
 
 error_status {
 	out "error?";
-	in $return "%i%*{" $Stopped "|" $Infusion,"|" $Withdrawal,"}";
+	in $return "%i%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { mismatch_catcher; }
 }
 
 run {
     out "run";
-	in "%*{" $Infusion "|" $Withdrawal "}";
-	@mismatch { error_mismatch; }
+	in "%(\$2){" $NA "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { mismatch_catcher; }
 }
 
 run_status {
 	out "run?";
 	in "%{" $Stopped "|" $Infusion "|" $Withdrawal "}";
-	@mismatch { error_mismatch; }
+	@mismatch { mismatch_catcher; }
 }
 
 stop {
 	out "stop";
-	in $Stopped;
-	@mismatch { error_mismatch; }
+	in "%(\$2){" $NA "|" $Stopped "}";
+	@mismatch { mismatch_catcher; }
 }
 
 get_mode {
 	out "mode?";
 	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
-	@mismatch { error_mismatch; }
+	@mismatch { mismatch_catcher; }
 }
 
 set_mode {	
 	out "mode %{i\/w|w\/i|i|w|con}";
-	in "%*{"$Stopped"}";
-	@mismatch { error_mismatch; }
+	in "%(\$2){" $return "NA|" $Stopped "}";
+	@mismatch { mismatch_catcher; }
 }
 
 get_direction {
 	out "dir?";
 	in "%{" $return "I|" $return "W}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
-	@mismatch { error_mismatch; }
+	@mismatch { mismatch_catcher; }
 }
 
 reverse_direction {
 	out "dir rev";
-	in "%*{" $Infusion "|" $Withdrawal "}";
-	@mismatch { error_mismatch; }
+	in "%(\$2){" $NA "|}%*{" $Stopped "|" $Infusion "|" $Withdrawal "}";
+	@mismatch { mismatch_catcher; }
 }

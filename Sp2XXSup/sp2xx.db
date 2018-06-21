@@ -1,5 +1,4 @@
-record(bo, "$(P)DISABLE") 
-{
+record(bo, "$(P)DISABLE"){
     field(DESC, "Disable comms")
     field(PINI, "YES")
     field(VAL, "$(DISABLE=0)")
@@ -8,13 +7,12 @@ record(bo, "$(P)DISABLE")
     field(ONAM, "COMMS DISABLED")
 }
 
-record(bo, "$(P)RUN:SP")
-{	
+record(bo, "$(P)RUN:SP"){	
 	field(DESC, "Starts the pump.")
 	field(SCAN, "Passive")
     field(DTYP, "stream")
 
-	field(OUT,  "@sp2xx.proto run($(P)ERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto run($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Run")
@@ -23,14 +21,13 @@ record(bo, "$(P)RUN:SP")
 	field(SDIS, "$(P)DISABLE")
 }
 
-record(bo, "$(P)STOP:SP")
-{	
+record(bo, "$(P)STOP:SP"){	
 	field(DESC, "Stops the pump.")
 	field(SCAN, "Passive")
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto stop($(P)ERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto stop($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "STOP")
@@ -39,14 +36,13 @@ record(bo, "$(P)STOP:SP")
 	field(SDIS, "$(P)DISABLE")
 }
 
-record(mbbi, "$(P)STATUS")
-{	
+record(mbbi, "$(P)STATUS"){	
 	field(DESC, "Gets the pump status.")
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 
 	
-	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto run_status($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -63,12 +59,11 @@ record(mbbi, "$(P)STATUS")
 	info(alarm, "Sp2XX")
 }
 
-record (mbbi, "$(P)ERROR")
-{
+record (mbbi, "$(P)ERROR"){
 	field(DESC, "Error type recorded after E prompt.")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto error_status $(PORT)")
+	field(INP,  "@sp2xx.proto error_status($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -88,6 +83,7 @@ record (mbbi, "$(P)ERROR")
 	field(TWSV, "MAJOR")
 	field(THST, "Comms error and stall")
 	field(THSV, "MAJOR")
+	
 	field(FRST, "Serial overrun")
 	field(FRSV, "MAJOR")
 	field(FVST, "Serial error and overrun")
@@ -103,11 +99,33 @@ record (mbbi, "$(P)ERROR")
 	info(alarm, "Sp2XX")
 }
 
+record (mbbi, "$(P)NA") {
+	field(DESC, "Record keeps track if NA is triggered.")
+	field(DTYP, "Soft Channel")
+	field(PINI, "YES")
+	field(VAL, "1")
+	
+	field(ZRVL, "0")
+	field(ZRST, "Can't run command")
+	
+	field(ONVL, "1")
+	field(ONST, "")	
+	
+	field(TWVL, "2")
+	field(TWST, "")
+	
+	field(THVL, "3")
+	field(THST, "")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
 record(mbbo, "$(P)MODE:SP"){
 	field(DESC, "Sets the mode of the device.")
 	field(DTYP, "stream")
 	
-	field(OUT,  "@sp2xx.proto set_mode($(P)ERROR) $(PORT)")
+	field(OUT,  "@sp2xx.proto set_mode($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -133,7 +151,7 @@ record(mbbi, "$(P)MODE"){
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto get_mode($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto get_mode($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -158,7 +176,7 @@ record(bi, "$(P)DIRECTION") {
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP, "@sp2xx.proto get_direction($(P)ERROR) $(PORT)")
+	field(INP, "@sp2xx.proto get_direction($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZNAM, "Infusion")
 	field(ONAM, "Withdrawal")
@@ -174,7 +192,7 @@ record(bo, "$(P)DIRECTION:REV") {
 	field(SCAN, "Passive")
 	field(DTYP, "stream")
 	
-	field(OUT, "@sp2xx.proto reverse_direction($(P)ERROR) $(PORT)")
+	field(OUT, "@sp2xx.proto reverse_direction($(P)ERROR,$(P)NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Reverse")
