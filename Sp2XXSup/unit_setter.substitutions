@@ -6,17 +6,17 @@ file $(UTILITIES)/db/unit_setter.template {
   pattern 
     {P,    FROM, TO, PROCESS_FLAGS}
     
-    {"\$(P)", "VOL:INF:UNITS:SP", "VOL:INF:SP", "PP"}
-    {"\$(P)", "VOL:INF:UNITS", "VOL:INF", ""}
+    {"\$(P)", "VOL:INF:UNITS:SP", "VOL:INF:SP", ""}
+    {"\$(P)", "VOL:INF:UNITS", "VOL:INF", "PP"}
 
-    {"\$(P)", "VOL:WDR:UNITS:SP", "VOL:WDR:SP", "PP"}
-    {"\$(P)", "VOL:WDR:UNITS", "VOL:WDR", ""}
+    {"\$(P)", "VOL:WDR:UNITS:SP", "VOL:WDR:SP", ""}
+    {"\$(P)", "VOL:WDR:UNITS", "VOL:WDR", "PP"}
 
-    {"\$(P)", "RATE:INF:UNITS:SP", "RATE:INF:SP", "PP"}
-    {"\$(P)", "RATE:INF:UNITS", "RATE:INF", ""}
+    {"\$(P)", "RATE:INF:UNITS:SP", "RATE:INF:SP", ""}
+    {"\$(P)", "RATE:INF:UNITS", "RATE:INF", "PP"}
 
-    {"\$(P)", "RATE:WDR:UNITS:SP", "RATE:WDR:SP", "PP"}
-    {"\$(P)", "RATE:WDR:UNITS", "RATE:WDR", ""}    
+    {"\$(P)", "RATE:WDR:UNITS:SP", "RATE:WDR:SP", ""}
+    {"\$(P)", "RATE:WDR:UNITS", "RATE:WDR", "PP"}    
 }
 
 file sp2xxSetting.template {

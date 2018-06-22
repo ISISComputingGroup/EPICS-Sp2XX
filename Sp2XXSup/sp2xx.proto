@@ -11,7 +11,7 @@ Infusion = $return ">";
 Withdrawal = $return "<";
 NA = $return "NA";
 ignored_status = $return "%*{:|>|<}";
-rate_units = "{ml\/m|ml\/h|ul\/m|ul\/h}";
+rate_units = "{ml/m|ml/h|ul/m|ul/h}";
 volume_units = "{ml|ul}";
 
 mismatch_catcher {
@@ -82,7 +82,7 @@ set_diam {
 
 get_voli {
 	out "voli?";
-	in $return "%f %(\$3)" $volume_units $ignored_status;
+	in $return "%f %(\$1\$3)" $volume_units $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -94,7 +94,7 @@ set_voli {
 
 get_volw {
 	out "volw?";
-	in $return "%f %(\$3)" $volume_units $ignored_status;
+	in $return "%f %(\$1\$3)" $volume_units $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -106,7 +106,7 @@ set_volw {
 
 get_ratew {
 	out "ratew?";
-	in $return "%f %(\$3)" $rate_units $ignored_status;
+	in $return "%f %(\$1\$3)" $rate_units $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -118,7 +118,7 @@ set_ratew {
 
 get_ratei {
 	out "ratei?";
-	in $return "%f %(\$3)" $rate_units $ignored_status;
+	in $return "%f %(\$1\$3)" $rate_units $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 

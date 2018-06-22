@@ -124,11 +124,11 @@ record(mbbo, "$(P)MODE:SP"){
 	field(THVL, "3")
 	field(FRVL, "4")
 	
-	field(ZRST, "i/w")
-	field(ONST, "w/i")
-	field(TWST, "i")
-	field(THST, "w")
-	field(FRST, "con")
+	field(ZRST, "Infusion/Withdrawal")
+	field(ONST, "Withdrawal/Infusion")
+	field(TWST, "Infusion")
+	field(THST, "Withdrawal")
+	field(FRST, "Continuous")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")

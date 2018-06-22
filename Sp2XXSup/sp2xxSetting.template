@@ -4,7 +4,7 @@ record(ai, "$(P)$(PVNAME)") {
 	field(DTYP, "stream")
     field(PREC, "3")
 	
-	field(INP, "@sp2xx.proto get_$(PROTO)($(P),ERROR,$(P)$(PVNAME):UNITS) $(PORT)")
+	field(INP, "@sp2xx.proto get_$(PROTO)($(P),ERROR,$(PVNAME):UNITS) $(PORT)")
     field(EGU, "")  # Set via unit pusher
 }
 
@@ -27,7 +27,8 @@ record(mbbi, "$(P)$(PVNAME):UNITS:SP") {
  	field(ZRST, "$(UNIT1)")
 	field(ONST, "$(UNIT2)")
     field(TWST, "$(UNIT3)")
-    field(FRST, "$(UNIT4)")
+    field(THST, "$(UNIT4)")
+    
 }
 
 record(mbbi, "$(P)$(PVNAME):UNITS") {
@@ -37,6 +38,6 @@ record(mbbi, "$(P)$(PVNAME):UNITS") {
  	field(ZRST, "$(UNIT1)")
 	field(ONST, "$(UNIT2)")
     field(TWST, "$(UNIT3)")
-    field(FRST, "$(UNIT4)")
+    field(THST, "$(UNIT4)")
     
 }
