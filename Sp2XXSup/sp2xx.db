@@ -12,7 +12,7 @@ record(bo, "$(P)RUN:SP"){
 	field(SCAN, "Passive")
     field(DTYP, "stream")
 
-	field(OUT,  "@sp2xx.proto run($(P)ERROR,$(P)NA) $(PORT)")
+	field(OUT,  "@sp2xx.proto run($(P),ERROR,NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Run")
@@ -27,7 +27,7 @@ record(bo, "$(P)STOP:SP"){
     field(DTYP, "stream")
 
 	
-	field(OUT,  "@sp2xx.proto stop($(P)ERROR,$(P)NA) $(PORT)")
+	field(OUT,  "@sp2xx.proto stop($(P),ERROR,NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "STOP")
@@ -42,7 +42,7 @@ record(mbbi, "$(P)STATUS"){
 	field(DTYP, "stream")
 
 	
-	field(INP,  "@sp2xx.proto run_status($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto run_status($(P),ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -63,7 +63,7 @@ record (mbbi, "$(P)ERROR"){
 	field(DESC, "Error type recorded after E prompt.")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto error_status($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto error_status($(P),ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -116,7 +116,7 @@ record(mbbo, "$(P)MODE:SP"){
 	field(DESC, "Sets the mode of the device.")
 	field(DTYP, "stream")
 	
-	field(OUT,  "@sp2xx.proto set_mode($(P)ERROR,$(P)NA) $(PORT)")
+	field(OUT,  "@sp2xx.proto set_mode($(P),ERROR,NA) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -142,7 +142,7 @@ record(mbbi, "$(P)MODE"){
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP,  "@sp2xx.proto get_mode($(P)ERROR) $(PORT)")
+	field(INP,  "@sp2xx.proto get_mode($(P),ERROR) $(PORT)")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
@@ -167,7 +167,7 @@ record(bi, "$(P)DIRECTION") {
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP, "@sp2xx.proto get_direction($(P)ERROR) $(PORT)")
+	field(INP, "@sp2xx.proto get_direction($(P),ERROR) $(PORT)")
 	
 	field(ZNAM, "Infusion")
 	field(ONAM, "Withdrawal")
@@ -183,7 +183,7 @@ record(bo, "$(P)DIRECTION:REV") {
 	field(SCAN, "Passive")
 	field(DTYP, "stream")
 	
-	field(OUT, "@sp2xx.proto reverse_direction($(P)ERROR,$(P)NA) $(PORT)")
+	field(OUT, "@sp2xx.proto reverse_direction($(P),ERROR,NA) $(PORT)")
 	
 	field(ZNAM, "")
 	field(ONAM, "Reverse")
@@ -199,7 +199,8 @@ record(ai, "$(P)DIAMETER") {
 	field(SCAN, "1 second")
 	field(DTYP, "stream")
 	
-	field(INP, "@sp2xx.proto get_diam($(P)ERROR) $(PORT)")
+	field(INP, "@sp2xx.proto get_diam($(P),ERROR) $(PORT)")
+    field(EGU, "mm")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")
@@ -211,14 +212,16 @@ record(ao, "$(P)DIAMETER:SP") {
 	field(DESC, "Sets the syringe diameter settings.")
 	field(DTYP, "stream")
 	
-	field(OUT, "@sp2xx.proto set_diam($(P)ERROR,$(P)NA) $(PORT)")
+	field(OUT, "@sp2xx.proto set_diam($(P),ERROR,NA) $(PORT)")
 	field(PREC, "2") 
+    field(EGU, "mm")
 	
 	field(SIML, "$(P)SIM")
 	field(SDIS, "$(P)DISABLE")
 	
 	info(alarm, "Sp2XX")
 }
+
 
 
 ## SIMULATION PVS ##

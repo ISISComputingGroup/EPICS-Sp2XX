@@ -1,0 +1,42 @@
+record(ai, "$(P)$(PVNAME)") {
+	field(DESC, "$(MEANING)")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+    field(PREC, "3")
+	
+	field(INP, "@sp2xx.proto get_$(PROTO)($(P),ERROR,$(P)$(PVNAME):UNITS) $(PORT)")
+    field(EGU, "")  # Set via unit pusher
+}
+
+record(ao, "$(P)$(PVNAME):SP") {
+	field(DESC, "Sets the $(MEANING)")
+	field(DTYP, "stream")
+	
+	field(OUT, "@sp2xx.proto set_$(PROTO)($(P),ERROR,NA,$(PVNAME):UNITS:SP) $(PORT)")
+	field(PREC, "3")
+    field(EGU, "") # set via unit pusher
+    
+    field(HOPR, "9999")
+    field(LOPR, "0.001")
+}
+
+record(mbbi, "$(P)$(PVNAME):UNITS:SP") {
+	field(DESC, "Sets the $(MEANING)")
+	field(DTYP, "Soft Channel")
+    
+ 	field(ZRST, "$(UNIT1)")
+	field(ONST, "$(UNIT2)")
+    field(TWST, "$(UNIT3)")
+    field(FRST, "$(UNIT4)")
+}
+
+record(mbbi, "$(P)$(PVNAME):UNITS") {
+	field(DESC, "The $(MEANING)")
+	field(DTYP, "Soft Channel")
+    
+ 	field(ZRST, "$(UNIT1)")
+	field(ONST, "$(UNIT2)")
+    field(TWST, "$(UNIT3)")
+    field(FRST, "$(UNIT4)")
+    
+}
