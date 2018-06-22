@@ -1,0 +1,240 @@
+record(bo, "$(P)DISABLE"){
+    field(DESC, "Disable comms")
+    field(PINI, "YES")
+    field(VAL, "$(DISABLE=0)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "COMMS ENABLED")
+    field(ONAM, "COMMS DISABLED")
+}
+
+record(bo, "$(P)RUN:SP"){	
+	field(DESC, "Starts the pump.")
+	field(SCAN, "Passive")
+    field(DTYP, "stream")
+
+	field(OUT,  "@sp2xx.proto run($(P),ERROR,NA) $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "Run")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
+record(bo, "$(P)STOP:SP"){	
+	field(DESC, "Stops the pump.")
+	field(SCAN, "Passive")
+    field(DTYP, "stream")
+
+	
+	field(OUT,  "@sp2xx.proto stop($(P),ERROR,NA) $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "STOP")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbi, "$(P)STATUS"){	
+	field(DESC, "Gets the pump status.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+
+	
+	field(INP,  "@sp2xx.proto run_status($(P),ERROR) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	
+	field(ZRST, "Stopped")
+	field(ONST, "Infusion")
+	field(TWST, "Withdrawal")
+
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record (mbbi, "$(P)ERROR"){
+	field(DESC, "Error type recorded after E prompt.")
+	field(DTYP, "stream")
+	
+	field(INP,  "@sp2xx.proto error_status($(P),ERROR) $(PORT)")
+	field(VAL, "0")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	field(FVVL, "5")
+	field(SXVL, "6")
+	field(SVVL, "7")
+	
+	
+	field(ZRST, "No error")
+	field(ZRSV, "NO_ALARM")
+	field(ONST, "Comms error")
+	field(ONSV, "MAJOR")
+	field(TWST, "Stall")
+	field(TWSV, "MAJOR")
+	field(THST, "Comms error and stall")
+	field(THSV, "MAJOR")
+	
+	field(FRST, "Serial overrun")
+	field(FRSV, "MAJOR")
+	field(FVST, "Serial error and overrun")
+	field(FVSV, "MAJOR")
+	field(SXST, "Stall and serial overrun")
+	field(SXSV, "MAJOR")
+	field(SVST, "Stall ser err and overun")
+	field(SVSV, "MAJOR")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(bi, "$(P)NA") {
+	field(DESC, "Record keeps track if NA is triggered.")
+	field(DTYP, "Soft Channel")
+	field(PINI, "YES")
+	field(VAL, "1")
+	
+	field(ZNAM, "Can't run command")
+	field(ONAM, "")	
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbo, "$(P)MODE:SP"){
+	field(DESC, "Sets the mode of the device.")
+	field(DTYP, "stream")
+	
+	field(OUT,  "@sp2xx.proto set_mode($(P),ERROR,NA) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	
+	field(ZRST, "Infusion/Withdrawal")
+	field(ONST, "Withdrawal/Infusion")
+	field(TWST, "Infusion")
+	field(THST, "Withdrawal")
+	field(FRST, "Continuous")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+
+record(mbbi, "$(P)MODE"){
+	field(DESC, "Gets the mode of the device.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP,  "@sp2xx.proto get_mode($(P),ERROR) $(PORT)")
+	
+	field(ZRVL, "0")
+	field(ONVL, "1")
+	field(TWVL, "2")
+	field(THVL, "3")
+	field(FRVL, "4")
+	
+	field(ZRST, "Infusion/Withdrawal")
+	field(ONST, "Withdrawal/Infusion")
+	field(TWST, "Infusion")
+	field(THST, "Withdrawal")
+	field(FRST, "Continuous")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(bi, "$(P)DIRECTION") {
+	field(DESC, "Gets the direction of the device.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP, "@sp2xx.proto get_direction($(P),ERROR) $(PORT)")
+	
+	field(ZNAM, "Infusion")
+	field(ONAM, "Withdrawal")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(bo, "$(P)DIRECTION:REV") {
+	field(DESC, "Reverse the direction of the device.")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	
+	field(OUT, "@sp2xx.proto reverse_direction($(P),ERROR,NA) $(PORT)")
+	
+	field(ZNAM, "")
+	field(ONAM, "Reverse")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(ai, "$(P)DIAMETER") {
+	field(DESC, "Requests the current diameter settings.")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	
+	field(INP, "@sp2xx.proto get_diam($(P),ERROR) $(PORT)")
+    field(EGU, "mm")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+record(ao, "$(P)DIAMETER:SP") {
+	field(DESC, "Sets the syringe diameter settings.")
+	field(DTYP, "stream")
+	
+	field(OUT, "@sp2xx.proto set_diam($(P),ERROR,NA) $(PORT)")
+	field(PREC, "2") 
+    field(EGU, "mm")
+	
+	field(SIML, "$(P)SIM")
+	field(SDIS, "$(P)DISABLE")
+	
+	info(alarm, "Sp2XX")
+}
+
+
+
+## SIMULATION PVS ##
+
+record(bo, "$(P)SIM") 
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+	field(VAL, "$(RECSIM=0)")
+}
+
+
+## END OF SIMULATION PVS ##

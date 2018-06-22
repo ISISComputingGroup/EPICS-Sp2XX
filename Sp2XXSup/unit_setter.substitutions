@@ -1,0 +1,32 @@
+
+# Set points do not have units set because it will cause it to be processed thus sending a possibly wrong value
+# to the display 
+
+file $(UTILITIES)/db/unit_setter.template { 
+  pattern 
+    {P,    FROM, TO, PROCESS_FLAGS}
+    
+    {"\$(P)", "VOL:INF:UNITS:SP", "VOL:INF:SP", ""}
+    {"\$(P)", "VOL:INF:UNITS", "VOL:INF", "PP"}
+
+    {"\$(P)", "VOL:WDR:UNITS:SP", "VOL:WDR:SP", ""}
+    {"\$(P)", "VOL:WDR:UNITS", "VOL:WDR", "PP"}
+
+    {"\$(P)", "RATE:INF:UNITS:SP", "RATE:INF:SP", ""}
+    {"\$(P)", "RATE:INF:UNITS", "RATE:INF", "PP"}
+
+    {"\$(P)", "RATE:WDR:UNITS:SP", "RATE:WDR:SP", ""}
+    {"\$(P)", "RATE:WDR:UNITS", "RATE:WDR", "PP"}    
+}
+
+file sp2xxSetting.template {
+  pattern 
+    {P,       PORT,      PVNAME,     MEANING,          PROTO,  UNIT1, UNIT2, UNIT3, UNIT4}
+    
+    {"\$(P)", "\$(PORT)","VOL:INF", "infusion volume", "voli", "ml",  "ul", "",    ""}
+    {"\$(P)", "\$(PORT)","VOL:WDR", "withdrawal volume", "volw", "ml",  "ul", "",    ""}
+    
+    {"\$(P)", "\$(PORT)","RATE:WDR", "withdrawal rate", "ratew", "ml/m",  "ml/h", "ul/m", "ul/h"}
+    {"\$(P)", "\$(PORT)","RATE:INF", "infusion rate", "ratei", "ml/m",  "ml/h", "ul/m", "ul/h"}
+
+}
