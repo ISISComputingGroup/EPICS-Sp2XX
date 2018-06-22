@@ -64,6 +64,7 @@ record (mbbi, "$(P)ERROR"){
 	field(DTYP, "stream")
 	
 	field(INP,  "@sp2xx.proto error_status($(P),ERROR) $(PORT)")
+	field(VAL, "0")
 	
 	field(ZRVL, "0")
 	field(ONVL, "1")
