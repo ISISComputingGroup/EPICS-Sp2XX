@@ -19,7 +19,7 @@ file $(UTILITIES)/db/unit_setter.template {
     {"\$(P)", "RATE:WDR:UNITS", "RATE:WDR", "PP"}    
 }
 
-file sp2xxSetting.template {
+file sp2xxSetting_without_unit_pusher.template {
   pattern 
     {P,       PORT,      PVNAME,     MEANING,          PROTO,  UNIT1, UNIT2, UNIT3, UNIT4}
     
