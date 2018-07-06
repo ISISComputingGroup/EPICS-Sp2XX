@@ -64,12 +64,12 @@ record(mbbi, "$(P)STATUS"){
 }
 
 record (mbbi, "$(P)ERROR"){
-<<<<<<< HEAD
     field(DESC, "Error type recorded after E prompt.")
     field(DTYP, "stream")
     field(PINI, "YES")
     
     field(INP,  "@sp2xx.proto error_status($(P),ERROR) $(PORT)")
+    field(VAL, "0")
     
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -103,46 +103,6 @@ record (mbbi, "$(P)ERROR"){
     field(SDIS, "$(P)DISABLE")
     
     info(archive, "VAL")
-=======
-	field(DESC, "Error type recorded after E prompt.")
-	field(DTYP, "stream")
-	
-	field(INP,  "@sp2xx.proto error_status($(P),ERROR) $(PORT)")
-	field(VAL, "0")
-	
-	field(ZRVL, "0")
-	field(ONVL, "1")
-	field(TWVL, "2")
-	field(THVL, "3")
-	field(FRVL, "4")
-	field(FVVL, "5")
-	field(SXVL, "6")
-	field(SVVL, "7")
-	
-	
-	field(ZRST, "No error")
-	field(ZRSV, "NO_ALARM")
-	field(ONST, "Comms error")
-	field(ONSV, "MAJOR")
-	field(TWST, "Stall")
-	field(TWSV, "MAJOR")
-	field(THST, "Comms error and stall")
-	field(THSV, "MAJOR")
-	
-	field(FRST, "Serial overrun")
-	field(FRSV, "MAJOR")
-	field(FVST, "Serial error and overrun")
-	field(FVSV, "MAJOR")
-	field(SXST, "Stall and serial overrun")
-	field(SXSV, "MAJOR")
-	field(SVST, "Stall ser err and overun")
-	field(SVSV, "MAJOR")
-	
-	field(SIML, "$(P)SIM")
-	field(SDIS, "$(P)DISABLE")
-	
-	info(alarm, "Sp2XX")
->>>>>>> origin/master
 }
 
 record(bi, "$(P)NA") {
