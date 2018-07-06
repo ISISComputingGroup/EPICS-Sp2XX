@@ -27,7 +27,7 @@ record(mbbi, "$(P)$(PVNAME):UNITS:SP") {
     field(DESC, "Sets the $(MEANING)")
     field(DTYP, "Soft Channel")
     
-     field(ZRST, "$(UNIT1)")
+    field(ZRST, "$(UNIT1)")
     field(ONST, "$(UNIT2)")
     field(TWST, "$(UNIT3)")
     field(THST, "$(UNIT4)")
@@ -38,7 +38,7 @@ record(mbbi, "$(P)$(PVNAME):UNITS") {
     field(DESC, "The $(MEANING)")
     field(DTYP, "Soft Channel")
     
-     field(ZRST, "$(UNIT1)")
+    field(ZRST, "$(UNIT1)")
     field(ONST, "$(UNIT2)")
     field(TWST, "$(UNIT3)")
     field(THST, "$(UNIT4)")
