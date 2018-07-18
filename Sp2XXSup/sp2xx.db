@@ -124,6 +124,7 @@ record(bi, "$(P)NA") {
     
     field(ZNAM, "Can't run command")
     field(ONAM, "No error")
+    field(ONSV, "MAJOR")
     
     info(archive, "VAL")
 }
