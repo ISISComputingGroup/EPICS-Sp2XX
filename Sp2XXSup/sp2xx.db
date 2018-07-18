@@ -74,6 +74,7 @@ record(mbbi, "$(P)STATUS"){
 }
 
 record (mbbi, "$(P)ERROR"){
+    field(SCAN, "Passive")  # This is triggered on a mismatch hangler in the protocol
     field(DESC, "Error type recorded after E prompt.")
     field(DTYP, "stream")
     field(PINI, "YES")
@@ -111,7 +112,7 @@ record (mbbi, "$(P)ERROR"){
     
     info(archive, "VAL")
     field(SIML, "$(P)SIM")
-    field(SIOL, "$(P)SIM:STATUS")
+    field(SIOL, "$(P)SIM:ERROR")
     field(SDIS, "$(P)DISABLE")
 }
 
@@ -122,7 +123,7 @@ record(bi, "$(P)NA") {
     field(VAL, "1")
     
     field(ZNAM, "Can't run command")
-    field(ONAM, "")    
+    field(ONAM, "No error")
     
     info(archive, "VAL")
 }
