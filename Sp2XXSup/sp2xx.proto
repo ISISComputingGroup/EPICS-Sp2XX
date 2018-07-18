@@ -10,6 +10,7 @@ Stopped = $return ":";
 Infusion = $return ">";
 Withdrawal = $return "<";
 NA = $return "NA";
+na_or_blank = "%(\$1\$3){" $NA "|}"
 ignored_status = $return "%*{:|>|<}";
 rate_units = "{ml/m|ml/h|ul/m|ul/h}";
 volume_units = "{ml|ul}";
@@ -40,13 +41,13 @@ run_status {
 
 stop {
 	out "stop";
-	in "%(\$1\$3){" $NA "=0|" $Stopped "=1}";
-	@mismatch { mismatch_catcher; }
+	in "%(\$1\$3)#{" $NA "=0|" $Stopped "=1}";
+	#@mismatch { mismatch_catcher; }
 }
 
 get_mode {
 	out "mode?";
-	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}" $ignored_status;
+	in $return "%{IW|WI|I|W|CON}" $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -58,13 +59,13 @@ set_mode {
 
 get_direction {
 	out "dir?";
-	in "%{" $return "I|" $return "W}" $ignored_status;
+	in $return "%{I|W}" $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
 reverse_direction {
 	out "dir rev";
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -76,7 +77,7 @@ get_diam {
 
 set_diam {
 	out "dia %4.2f";
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -88,7 +89,7 @@ get_voli {
 
 set_voli {
 	out "voli %05g %(\$1\$4)" $volume_units;
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -100,7 +101,7 @@ get_volw {
 
 set_volw {
 	out "volw %05g %(\$1\$4)" $volume_units;
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -112,7 +113,7 @@ get_ratew {
 
 set_ratew {
 	out "ratew %05g %(\$1\$4)" $rate_units;
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -124,6 +125,6 @@ get_ratei {
 
 set_ratei {
 	out "ratei %05g %(\$1\$4)" $rate_units;
-	in "%(\$1\$3){" $NA "|}" $ignored_status;
+	in $na_or_blank $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
