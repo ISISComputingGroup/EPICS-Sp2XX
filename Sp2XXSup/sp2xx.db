@@ -1,4 +1,14 @@
-record(bo, "$(P)DISABLE"){
+record(bo, "$(P)SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+}
+
+record(bo, "$(P)DISABLE") 
+{
     field(DESC, "Disable comms")
     field(PINI, "YES")
     field(VAL, "$(DISABLE=0)")
@@ -17,9 +27,10 @@ record(bo, "$(P)RUN:SP"){
     field(ZNAM, "")
     field(ONAM, "Run")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
     info(INTEREST, "HIGH")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RUN:SP.PROC")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(bo, "$(P)STOP:SP"){    
@@ -31,11 +42,11 @@ record(bo, "$(P)STOP:SP"){
     
     field(ZNAM, "")
     field(ONAM, "STOP")
-    
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
+       
     info(INTEREST, "HIGH")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:STOP:SP.PROC")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(mbbi, "$(P)STATUS"){    
@@ -53,14 +64,13 @@ record(mbbi, "$(P)STATUS"){
     field(ZRST, "Stopped")
     field(ONST, "Infusion")
     field(TWST, "Withdrawal")
-
-    
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
     
     info(alarm, "Sp2XX")
     info(INTEREST, "HIGH")
     info(archive, "VAL")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:STATUS")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record (mbbi, "$(P)ERROR"){
@@ -99,10 +109,10 @@ record (mbbi, "$(P)ERROR"){
     field(SVST, "Stall ser err and overun")
     field(SVSV, "MAJOR")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(archive, "VAL")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:STATUS")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(bi, "$(P)NA") {
@@ -114,8 +124,6 @@ record(bi, "$(P)NA") {
     field(ZNAM, "Can't run command")
     field(ONAM, "")    
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
     info(archive, "VAL")
 }
 
@@ -137,10 +145,10 @@ record(mbbo, "$(P)MODE:SP"){
     field(THST, "Withdrawal")
     field(FRST, "Continuous")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(archive, "VAL")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MODE:SP")
+    field(SDIS, "$(P)DISABLE")
 }
 
 
@@ -163,11 +171,11 @@ record(mbbi, "$(P)MODE"){
     field(THST, "Withdrawal")
     field(FRST, "Continuous")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(archive, "VAL")
     info(INTEREST, "HIGH")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MODE")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(bi, "$(P)DIRECTION") {
@@ -180,11 +188,11 @@ record(bi, "$(P)DIRECTION") {
     field(ZNAM, "Infusion")
     field(ONAM, "Withdrawal")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(archive, "VAL")
     info(INTEREST, "HIGH")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:DIRECTION")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(bo, "$(P)DIRECTION:REV") {
@@ -197,10 +205,10 @@ record(bo, "$(P)DIRECTION:REV") {
     field(ZNAM, "")
     field(ONAM, "Reverse")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(INTEREST, "MEDIUM")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:DIRECTION:REV.PROC")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(ai, "$(P)DIAMETER") {
@@ -211,11 +219,11 @@ record(ai, "$(P)DIAMETER") {
     field(INP, "@sp2xx.proto get_diam($(P),ERROR) $(PORT)")
     field(EGU, "mm")
     
-    field(SIML, "$(P)SIM")
-    field(SDIS, "$(P)DISABLE")
-    
     info(archive, "VAL")
     info(INTEREST, "MEDIUM")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:DIAMETER")
+    field(SDIS, "$(P)DISABLE")
 }
 
 record(ao, "$(P)DIAMETER:SP") {
@@ -226,24 +234,100 @@ record(ao, "$(P)DIAMETER:SP") {
     field(PREC, "2") 
     field(EGU, "mm")
     
+    info(archive, "VAL")
     field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:DIAMETER:SP")
     field(SDIS, "$(P)DISABLE")
-    
-    info(alarm, "Sp2XX")
 }
 
 
+### SIMULATION RECORDS ###
 
-## SIMULATION PVS ##
-
-record(bo, "$(P)SIM") 
+record(mbbi, "$(P)SIM:STATUS")
 {
     field(SCAN, "Passive")
     field(DTYP, "Soft Channel")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
-    field(VAL, "$(RECSIM=0)")
+    
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    
+    field(ZRST, "Stopped")
+    field(ONST, "Infusion")
+    field(TWST, "Withdrawal")
 }
 
+record(calcout, "$(P)SIM:DIRECTION:REV")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(INPA, "$(P)SIM:STATUS")
+    field(CALC, "A==1?2:A==2?1:0")
+    field(OUT, "$(P)SIM:STATUS PP")    
+}
 
-## END OF SIMULATION PVS ##
+record(calcout, "$(P)SIM:RUN:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(INPA, "$(P)SIM:MODE")
+    field(CALC, "A==0||A==2||A==4?1:2")
+    field(OUT, "$(P)SIM:STATUS")    
+}
+
+record(calcout, "$(P)SIM:STOP:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    
+    field(CALC, "0")
+    field(OUT, "$(P)SIM:STATUS")
+}
+
+record(ai, "$(P)SIM:DIAMETER")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:DIAMETER","$(P)SIM:DIAMETER:SP")
+
+
+record(mbbi, "$(P)SIM:MODE")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    
+    field(ZRST, "Infusion/Withdrawal")
+    field(ONST, "Withdrawal/Infusion")
+    field(TWST, "Infusion")
+    field(THST, "Withdrawal")
+    field(FRST, "Continuous")
+    
+    field(FLNK, "$(P)SIM:STOP:SP")
+
+}
+
+alias("$(P)SIM:MODE","$(P)SIM:MODE:SP")
+
+record(mbbi, "$(P)SIM:ERROR")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(calc, "$(P)SIM:DIRECTION")
+{
+    field(SCAN, "Passive")
+       
+    field(INPA, "$(P)MODE CP")
+    field(INPB, "$(P)STATUS CP")
+    field(CALC, "B!=0?B-1:A==0||A==2||A==4?0:1")
+    
+}
