@@ -1,0 +1,84 @@
+record(ai, "$(P)$(PVNAME)") {
+    field(DESC, "$(MEANING)")
+    field(SCAN, "1 second")
+    field(DTYP, "stream")
+    field(PREC, "3")
+    
+    field(INP, "@sp2xx.proto get_$(PROTO)($(P),ERROR,$(PVNAME):UNITS) $(PORT)")
+    field(EGU, "")  # Set via unit pusher
+    
+    info(archive, "VAL")
+    info(INTEREST, "MEDIUM")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:$(PVNAME)")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)$(PVNAME):SP") {
+    field(DESC, "Sets the $(MEANING)")
+    field(DTYP, "stream")
+    
+    field(OUT, "@sp2xx.proto set_$(PROTO)($(P),ERROR,NA,$(PVNAME):UNITS:SP) $(PORT)")
+    field(PREC, "3")
+    field(EGU, "") # set via unit pusher
+    
+    field(HOPR, "9999")
+    field(LOPR, "0.001")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:$(PVNAME):SP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbi, "$(P)$(PVNAME):UNITS:SP") {
+    field(DESC, "Sets the $(MEANING)")
+    field(DTYP, "Soft Channel")
+    
+    field(ZRST, "$(UNIT1)")
+    field(ONST, "$(UNIT2)")
+    field(TWST, "$(UNIT3)")
+    field(THST, "$(UNIT4)")
+    
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+}
+
+record(mbbi, "$(P)$(PVNAME):UNITS") {
+    field(DESC, "The $(MEANING)")
+    field(DTYP, "Soft Channel")
+    
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    
+    field(ZRST, "$(UNIT1)")
+    field(ONST, "$(UNIT2)")
+    field(TWST, "$(UNIT3)")
+    field(THST, "$(UNIT4)")
+    
+}
+
+### SIMULATION RECORDS ###
+
+record(ai, "$(P)SIM:$(PVNAME)")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:$(PVNAME)","$(P)SIM:$(PVNAME):SP")
+
+record(calcout, "$(P)SIM:$(PVNAME):UNITS") {
+    field(INPA, "$(P)SIM PP")
+    field(INPB, "$(P)$(PVNAME):UNITS:SP CP")
+    field(INPC, "$(P)$(PVNAME):SP CP")
+    
+    field(CALC, "A")
+    field(OCAL, "B")
+    field(DOPT, "Use OCAL")
+    field(OOPT, "When Non-zero")
+    
+    field(OUT,  "$(P)$(PVNAME):UNITS PP")
+}

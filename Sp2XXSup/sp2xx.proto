@@ -40,13 +40,13 @@ run_status {
 
 stop {
 	out "stop";
-	in "%(\$1\$3){" $NA "=0|" $Stopped "=1}";
-	@mismatch { mismatch_catcher; }
+	in "%(\$1\$3)#{" $NA "=0|" $Stopped "=1}";
+	#@mismatch { mismatch_catcher; }
 }
 
 get_mode {
 	out "mode?";
-	in "%{" $return "IW|" $return "WI|" $return "I|" $return "W|" $return "CON}" $ignored_status;
+	in $return "%{IW|WI|I|W|CON}" $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
@@ -58,7 +58,7 @@ set_mode {
 
 get_direction {
 	out "dir?";
-	in "%{" $return "I|" $return "W}" $ignored_status;
+	in $return "%{I|W}" $ignored_status;
 	@mismatch { mismatch_catcher; }
 }
 
